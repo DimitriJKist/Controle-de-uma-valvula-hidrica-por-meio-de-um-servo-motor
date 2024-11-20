@@ -26,8 +26,8 @@ char teclas[LINHAS][COLUNAS] = {
   {'R', '0', 'E', 'D'}
 };
 
-byte pinosLinhas[LINHAS] = {10, 11, 12, 13}; // Pinos das linhas
-byte pinosColunas[COLUNAS] = {A0, A1, A2, A3}; // Pinos das colunas
+byte pinosLinhas[LINHAS] = {13, 12, 11, 10}; // Pinos das linhas
+byte pinosColunas[COLUNAS] = {A3, A2, A1, A0}; // Pinos das colunas
 Keypad teclado = Keypad(makeKeymap(teclas), pinosLinhas, pinosColunas, LINHAS, COLUNAS);
 
 // Configuração dos Botões com Pull-up e lógica inversa
@@ -99,6 +99,7 @@ void loop() {
 
   // Verificar se o botão 1 está pressionado para acessar o modo Teclado
   if (digitalRead(botao1) == LOW) { 
+    char teclaPressionada = teclado.getKey();
     if((modoAtual != MODO_SENOIDAL) && (modoAtual != MODO_ANGULO)){
       lcd.clear();
       lcd.setCursor(0, 0);
@@ -108,7 +109,7 @@ void loop() {
       delay(200);
     }
     // Verifica teclas para alternar entre modos no Modo Teclado
-    char teclaPressionada = teclado.getKey();
+
     if (teclaPressionada == 'A') {
       modoAtual = MODO_ANGULO;
       lcd.clear();
